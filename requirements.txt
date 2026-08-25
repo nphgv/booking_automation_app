@@ -1,0 +1,8 @@
+streamlit
+pandas
+openpyxl
+python-dotenv
+pymupdf
+playwright
+pytesseract
+pillow
