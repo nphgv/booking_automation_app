@@ -1,8 +1,11 @@
 .venv/
 __pycache__/
 .env
-data/*.db
-output/*
 *.pyc
 .DS_Store
+
+data/*.db
+data/BOOKING_DATABASE.xlsx
+
+output/*
 browser_profiles/
