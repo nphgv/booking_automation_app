@@ -2098,35 +2098,60 @@ elif page == "Carrier Portal":
             portal_url,
             width="stretch"
         )
-        if st.button(
-            f"🤖 Open {carrier} with Playwright",
-            type="primary",
-            width="stretch",
-            key="open_carrier_playwright"
-        ):
 
-            try:
+        # Detect Streamlit Cloud
+        is_cloud = bool(
+            os.getenv(
+                "STREAMLIT_SHARING_MODE"
+            )
+            or os.getenv(
+                "STREAMLIT_SERVER_HEADLESS"
+            )
+        )
 
-                subprocess.Popen(
-                    [
-                        sys.executable,
-                        "carrier_portal.py",
-                        carrier
-                    ],
-                    cwd=os.getcwd()
-                )
+        if is_cloud:
 
-                st.success(
-                    f"Đang mở {carrier} Login bằng Playwright..."
-                )
+            st.info(
+                """
+                🤖 Playwright desktop automation hiện chỉ
+                chạy trên bản local/desktop.
 
-            except Exception as error:
+                Trên bản cloud, bạn vẫn có thể mở portal
+                bằng nút phía trên.
+                """
+            )
 
-                st.error(
-                    "Không mở được Playwright browser."
-                )
+        else:
 
-                st.exception(
-                    error
-                )
+            if st.button(
+                f"🤖 Open {carrier} with Playwright",
+                type="primary",
+                width="stretch",
+                key="open_carrier_playwright"
+            ):
+
+                try:
+
+                    subprocess.Popen(
+                        [
+                            sys.executable,
+                            "carrier_portal.py",
+                            carrier
+                        ],
+                        cwd=os.getcwd()
+                    )
+
+                    st.success(
+                        f"Đang mở {carrier} Login bằng Playwright..."
+                    )
+
+                except Exception as error:
+
+                    st.error(
+                        "Không mở được Playwright browser."
+                    )
+
+                    st.exception(
+                        error
+                    )
 
